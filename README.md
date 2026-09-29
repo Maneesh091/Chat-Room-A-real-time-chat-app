@@ -18,3 +18,17 @@ Frontend	React, TypeScript, Tailwind CSS
 Backend  	Node.js, TypeScript, ws (WebSocket server)
 Config	   dotenv for environment variables 
 
+chat-app/
+├── backend/
+│   ├── src/
+│   │   └── index.ts        # WebSocket server
+│   ├── .env                # PORT config
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   └── App.tsx         # Chat UI + WebSocket client
+│   └── package.json
+│
+└── README.md
+
