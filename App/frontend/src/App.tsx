@@ -31,6 +31,21 @@ function App() {
   const userIdRef = useRef<string>("");
   const messageIdCounterRef = useRef<number>(0);
 
+
+  const THEMES = [
+  { id: "emerald", label: "Emerald", swatch: "#059669" },
+  // { id: "violet", label: "Violet", swatch: "#7c3aed" },
+  { id: "rose", label: "Rose", swatch: "#e11d48" },
+  { id: "amber", label: "Amber", swatch: "#f59e0b" },
+];
+
+// component ke andar, baaki useState ke saath
+const [theme, setTheme] = useState( "amber");
+
+// useEffect(() => {
+//   localStorage.setItem("chat-theme", theme);
+// }, [theme]);
+
  
   // AUTO SCROLL
   
@@ -392,39 +407,81 @@ function App() {
 
 
  return (
- <div className="min-h-screen bg-slate-950 text-white">
+ <div
+    data-theme={theme}
+    className="min-h-screen bg-page text-main transition-colors duration-300"
+  >
 
     <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-4 py-6">
 
       {/* Hero section  */}
-      <header className="mb-6 flex items-center justify-between">
+      <header className="mb-6 flex flex-wrap items-center justify-between gap-4 ">
 
         <div>
-          <h1 className="text-2xl font-bold ">
+          <h1 className="text-2xl font-bold">
             Chat Room
           </h1>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-soft">
             A real-time chat app
           </p>
         </div>
 
-        {/* Connection status */}
-        <div className="flex items-center gap-2 text-sm">
+        <div className="flex flex-wrap items-center gap-3 ">
+         
 
-          <span
-            className={`h-2.5 w-2.5 rounded-full ${
+          {/* Theme switcher */}
+          <div
+            role="group"
+            aria-label="Choose theme"
+            className="flex items-center gap-1 rounded-full border border-line bg-panel p-1"
+          >
+            {THEMES.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setTheme(t.id)}
+                aria-pressed={theme === t.id}
+                title={t.label}
+                className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition ${
+                  theme === t.id
+                    ? "bg-brand text-brand-text"
+                    : "text-soft hover:text-main"
+                }`}
+              >
+                <span
+                  className="h-2.5 w-2.5 rounded-full border border-black/10"
+                  style={{ backgroundColor: t.swatch }}
+                />
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Connection status */}
+          <div
+            className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm ${
               isConnected
-                ? "bg-green-500"
-                : "bg-red-500"
+                ? "bg-ok-bg text-ok-text"
+                : "bg-bad-bg text-bad-text"
             }`}
-          />
+          >
 
-          <span className="text-gray-400">
-            {isConnected
-              ? "Connected"
-              : "Disconnected"}
-          </span>
+            <span
+              className={`h-2.5 w-2.5 rounded-full ${
+                isConnected
+                  ? "bg-ok-dot"
+                  : "bg-bad-dot"
+              }`}
+            />
+
+            <span>
+              {isConnected
+                ? "Connected"
+                : "Disconnected"}
+            </span>
+
+          </div>
 
         </div>
 
@@ -434,13 +491,13 @@ function App() {
       {/* Room Section */}
       {!isRoomJoined && (
 
-       <section className="mb-5 rounded-xl border border-[#263449] bg-[#172033] p-5">
+       <section className="mb-5 rounded-xl border border-line bg-panel p-5">
 
           <h2 className="text-base font-medium">
             Join a room
           </h2>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-soft">
             Enter a Room ID or create a new room.
           </p>
 
@@ -460,7 +517,7 @@ function App() {
               }}
               placeholder="Enter Room ID"
               disabled={!isConnected}
-              className="flex-1 rounded-lg border border-gray-700 bg-gray-950 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-600 focus:border-gray-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg border border-line bg-field px-4 py-2.5 text-sm text-main outline-none placeholder:text-faint focus:border-brand disabled:cursor-not-allowed disabled:opacity-50"
             />
 
 
@@ -471,7 +528,7 @@ function App() {
                 !isConnected ||
                 !roomId.trim()
               }
-              className="rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-gray-900 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg bg-brand px-5 py-2.5 text-sm font-medium text-brand-text transition hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
             >
               Join
             </button>
@@ -481,7 +538,7 @@ function App() {
               type="button"
               onClick={handleCreateRoom}
               disabled={!isConnected}
-              className="rounded-lg border border-gray-700 bg-gray-800 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-line bg-field px-5 py-2.5 text-sm font-medium text-main transition hover:border-brand disabled:cursor-not-allowed disabled:opacity-40"
             >
               Create Room
             </button>
@@ -496,15 +553,15 @@ function App() {
       {/* Current Room */}
       {isRoomJoined && (
 
-        <div className="mb-4 flex items-center justify-between rounded-xl border border-gray-800 bg-gray-900 px-4 py-3">
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-line bg-panel px-4 py-3">
 
           <div>
 
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-soft">
               Current Room
             </p>
 
-            <p className="mt-1 text-sm font-medium text-white">
+            <p className="mt-1 text-sm font-medium text-main">
               {roomId}
             </p>
 
@@ -514,7 +571,7 @@ function App() {
           <button
             type="button"
             onClick={handleLeaveRoom}
-            className="text-sm text-gray-500 transition hover:text-red-400"
+            className="text-sm text-soft transition hover:text-bad-dot"
           >
             Leave
           </button>
@@ -525,11 +582,11 @@ function App() {
 
 
       {/* Chat Container */}
-      <main className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-gray-800 bg-gray-900">
+      <main className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-line bg-panel">
 
 
         {/* Chat Header */}
-        <div className="border-b border-gray-800 px-4 py-3">
+        <div className="border-b border-line px-4 py-3">
 
           <div className="flex items-center justify-between">
 
@@ -541,7 +598,7 @@ function App() {
                   : "Chat"}
               </p>
 
-              <p className="mt-0.5 text-xs text-gray-500">
+              <p className="mt-0.5 text-xs text-soft">
                 {isRoomJoined
                   ? "Messages are sent in real time"
                   : "Join a room to start chatting"}
@@ -550,7 +607,7 @@ function App() {
             </div>
 
             {isRoomJoined && (
-              <span className="text-xs text-green-500">
+              <span className="text-xs text-ok-dot">
                 ● Active
               </span>
             )}
@@ -568,7 +625,7 @@ function App() {
 
             <div className="flex h-full items-center justify-center">
 
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-soft">
                 Connecting to server...
               </p>
 
@@ -586,11 +643,11 @@ function App() {
 
                 <div>
 
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-soft">
                     No room selected
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-600">
+                  <p className="mt-1 text-xs text-faint">
                     Create a room or enter a Room ID above.
                   </p>
 
@@ -610,11 +667,11 @@ function App() {
 
                 <div>
 
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-soft">
                     No messages yet
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-600">
+                  <p className="mt-1 text-xs text-faint">
                     Send a message to start the conversation.
                   </p>
 
@@ -640,10 +697,10 @@ function App() {
               >
 
                 <div
-                  className={`max-w-[75%] rounded-lg px-4 py-2.5 ${
+                  className={`max-w-[75%] px-4 py-2.5 ${
                     msg.isOwn
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-800 text-gray-200"
+                      ? "rounded-2xl rounded-br-md bg-bubble-out text-bubble-out-text"
+                      : "rounded-2xl rounded-bl-md bg-bubble-in text-bubble-in-text"
                   }`}
                 >
 
@@ -654,8 +711,8 @@ function App() {
                   <p
                     className={`mt-1 text-[10px] ${
                       msg.isOwn
-                        ? "text-blue-200"
-                        : "text-gray-500"
+                        ? "text-time-out"
+                        : "text-time-in"
                     }`}
                   >
                     {new Date(
@@ -680,15 +737,12 @@ function App() {
 
 
         {/* Message Input */}
-        <div className="border-t border-gray-800 p-3">
+        <div className="border-t border-line p-3">
 
           <form
             onSubmit={handleSendMessage}
             className="flex items-center gap-2"
           >
-
-           
-
 
             {/* Input */}
             <input
@@ -710,7 +764,7 @@ function App() {
                   ? "Join a room first..."
                   : "Type a message..."
               }
-              className="min-w-0 flex-1 rounded-lg border border-gray-700 bg-gray-950 px-4 py-2.5 text-sm text-white outline-none placeholder:text-gray-600 focus:border-gray-500 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-w-0 flex-1 rounded-full border border-line bg-field px-5 py-2.5 text-sm text-main outline-none placeholder:text-faint focus:border-brand disabled:cursor-not-allowed disabled:opacity-40"
             />
 
 
@@ -722,7 +776,7 @@ function App() {
                 !isRoomJoined ||
                 !inputValue.trim()
               }
-              className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-full bg-brand px-6 py-2.5 text-sm font-medium text-brand-text transition hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-40"
             >
               Send
             </button>
@@ -732,9 +786,6 @@ function App() {
         </div>
 
       </main>
-
-
-      
 
     </div>
 

@@ -1,1 +1,133 @@
 @import "tailwindcss";
+
+
+
+/* 1. Map the variables to Tailwind color names (Tailwind v4) */
+@theme inline {
+  --color-page: var(--page);
+  --color-panel: var(--panel);
+  --color-field: var(--field);
+  --color-line: var(--line);
+  --color-main: var(--main);
+  --color-soft: var(--soft);
+  --color-faint: var(--faint);
+  --color-bubble-in: var(--bubble-in);
+  --color-bubble-in-text: var(--bubble-in-text);
+  --color-bubble-out: var(--bubble-out);
+  --color-bubble-out-text: var(--bubble-out-text);
+  --color-time-in: var(--time-in);
+  --color-time-out: var(--time-out);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-text: var(--brand-text);
+  --color-ok-bg: var(--ok-bg);
+  --color-ok-text: var(--ok-text);
+  --color-ok-dot: var(--ok-dot);
+  --color-bad-bg: var(--bad-bg);
+  --color-bad-text: var(--bad-text);
+  --color-bad-dot: var(--bad-dot);
+}
+
+/* 2. Emerald night (dark green) */
+[data-theme="emerald"] {
+  --page: #0a1512;
+  --panel: #10231d;
+  --field: #0a1512;
+  --line: #1b3a30;
+  --main: #ecfdf5;
+  --soft: #7aa396;
+  --faint: #4d6b60;
+  --bubble-in: #17332a;
+  --bubble-in-text: #d1fae5;
+  --bubble-out: #059669;
+  --bubble-out-text: #ffffff;
+  --time-in: #5f8a7b;
+  --time-out: #a7f3d0;
+  --brand: #059669;
+  --brand-hover: #10b981;
+  --brand-text: #ffffff;
+  --ok-bg: #052e1f;
+  --ok-text: #6ee7b7;
+  --ok-dot: #34d399;
+  --bad-bg: #450a0a;
+  --bad-text: #fca5a5;
+  --bad-dot: #ef4444;
+}
+
+/* 3. Soft light violet (light theme) */
+[data-theme="violet"] {
+  --page: #f8fafc;
+  --panel: #ffffff;
+  --field: #f8fafc;
+  --line: #e2e8f0;
+  --main: #0f172a;
+  --soft: #64748b;
+  --faint: #94a3b8;
+  --bubble-in: #f1f5f9;
+  --bubble-in-text: #0f172a;
+  --bubble-out: #7c3aed;
+  --bubble-out-text: #ffffff;
+  --time-in: #94a3b8;
+  --time-out: #ddd6fe;
+  --brand: #7c3aed;
+  --brand-hover: #6d28d9;
+  --brand-text: #ffffff;
+  --ok-bg: #dcfce7;
+  --ok-text: #166534;
+  --ok-dot: #22c55e;
+  --bad-bg: #fee2e2;
+  --bad-text: #991b1b;
+  --bad-dot: #ef4444;
+}
+
+/* 4. Rose plum (dark pink) */
+[data-theme="rose"] {
+  --page: #160d1a;
+  --panel: #221328;
+  --field: #160d1a;
+  --line: #3b2342;
+  --main: #fdf2f8;
+  --soft: #a78bb0;
+  --faint: #6b4f75;
+  --bubble-in: #2e1a36;
+  --bubble-in-text: #fce7f3;
+  --bubble-out: #e11d48;
+  --bubble-out-text: #ffffff;
+  --time-in: #8b6a96;
+  --time-out: #fecdd3;
+  --brand: #e11d48;
+  --brand-hover: #f43f5e;
+  --brand-text: #ffffff;
+  --ok-bg: #052e16;
+  --ok-text: #86efac;
+  --ok-dot: #22c55e;
+  --bad-bg: #3f0d1a;
+  --bad-text: #fda4af;
+  --bad-dot: #ef4444;
+}
+
+/* 5. Warm amber (dark brown + orange) */
+[data-theme="amber"] {
+  --page: #1c1917;
+  --panel: #292524;
+  --field: #1c1917;
+  --line: #44403c;
+  --main: #fafaf9;
+  --soft: #a8a29e;
+  --faint: #78716c;
+  --bubble-in: #3a3532;
+  --bubble-in-text: #fafaf9;
+  --bubble-out: #f59e0b;
+  --bubble-out-text: #1c1917;
+  --time-in: #8a817b;
+  --time-out: #78350f;
+  --brand: #f59e0b;
+  --brand-hover: #fbbf24;
+  --brand-text: #1c1917;
+  --ok-bg: #422006;
+  --ok-text: #fcd34d;
+  --ok-dot: #fbbf24;
+  --bad-bg: #450a0a;
+  --bad-text: #fca5a5;
+  --bad-dot: #ef4444;
+}
