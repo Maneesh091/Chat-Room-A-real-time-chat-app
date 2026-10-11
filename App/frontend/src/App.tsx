@@ -48,7 +48,9 @@ function App() {
   useEffect(() => {
     const connectWebSocket = () => {
       try {
-        const ws = new WebSocket("ws://localhost:8080");
+       const ws = new WebSocket(
+  "wss://chat-room-a-real-time-chat-app.onrender.com"
+);
 
         wsRef.current = ws;
 
